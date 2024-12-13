@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "chicory-api",
+	"version": "${version}",
+	"name": "Chicory API",
+	"description": "Contains utilities essential to all of Chikorita Lover's mods.",
+	"authors": [
+		"Chikorita Lover"
+	],
+	"contact": {
+		"homepage": "https://github.com/Chikorita-Lover/Chicory-API",
+		"sources": "https://github.com/Chikorita-Lover/Chicory-API",
+		"issues": "https://github.com/Chikorita-Lover/Chicory-API/issues"
+	},
+	"license": "ARR",
+	"icon": "assets/chicory/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.chikorita_lover.chicory.ChicoryApi"
+		],
+		"client": [
+			"net.chikorita_lover.chicory.ChicoryApiClient"
+		]
+	},
+	"mixins": [
+		"chicory-api.mixins.json",
+		{
+			"config": "chicory-api.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.21.0",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
