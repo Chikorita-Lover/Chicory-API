@@ -3,6 +3,7 @@
 	"package": "net.chikorita_lover.chicory.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"block.NoteBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
