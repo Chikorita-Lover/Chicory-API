@@ -3,6 +3,7 @@
 	"package": "net.chikorita_lover.chicory.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
+		"SplashTextResourceSupplierMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
