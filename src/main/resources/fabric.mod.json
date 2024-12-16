@@ -35,5 +35,6 @@
 		"minecraft": "~1.21.0",
 		"java": ">=21",
 		"fabric-api": "*"
-	}
+	},
+	"accessWidener" : "chicory-api.accesswidener"
 }

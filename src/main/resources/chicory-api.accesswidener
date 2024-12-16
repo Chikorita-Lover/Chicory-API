@@ -1,0 +1,31 @@
+accessWidener v2 named
+
+accessible field net/minecraft/block/AbstractBlock$Settings collidable Z
+accessible field net/minecraft/block/AbstractBlock$Settings lootTableKey Lnet/minecraft/registry/RegistryKey;
+accessible field net/minecraft/block/AbstractBlock$Settings resistance F
+accessible field net/minecraft/block/AbstractBlock$Settings randomTicks Z
+accessible field net/minecraft/block/AbstractBlock$Settings soundGroup Lnet/minecraft/sound/BlockSoundGroup;
+accessible field net/minecraft/block/AbstractBlock$Settings slipperiness F
+accessible field net/minecraft/block/AbstractBlock$Settings velocityMultiplier F
+accessible field net/minecraft/block/AbstractBlock$Settings jumpVelocityMultiplier F
+accessible field net/minecraft/block/AbstractBlock$Settings dynamicBounds Z
+accessible field net/minecraft/block/AbstractBlock$Settings requiredFeatures Lnet/minecraft/resource/featuretoggle/FeatureSet;
+accessible field net/minecraft/block/AbstractBlock$Settings luminance Ljava/util/function/ToIntFunction;
+accessible method net/minecraft/block/AbstractBlock hasSidedTransparency (Lnet/minecraft/block/BlockState;)Z
+accessible field net/minecraft/block/AbstractBlock$Settings isAir Z
+accessible field net/minecraft/block/AbstractBlock$Settings burnable Z
+accessible field net/minecraft/block/AbstractBlock$Settings liquid Z
+accessible field net/minecraft/block/AbstractBlock$Settings pistonBehavior Lnet/minecraft/block/piston/PistonBehavior;
+accessible field net/minecraft/block/AbstractBlock$Settings mapColorProvider Ljava/util/function/Function;
+accessible field net/minecraft/block/AbstractBlock$Settings hardness F
+accessible field net/minecraft/block/AbstractBlock$Settings toolRequired Z
+accessible field net/minecraft/block/AbstractBlock$Settings opaque Z
+accessible field net/minecraft/block/AbstractBlock$Settings solidBlockPredicate Lnet/minecraft/block/AbstractBlock$ContextPredicate;
+accessible field net/minecraft/block/AbstractBlock$Settings suffocationPredicate Lnet/minecraft/block/AbstractBlock$ContextPredicate;
+accessible field net/minecraft/block/AbstractBlock$Settings blockVisionPredicate Lnet/minecraft/block/AbstractBlock$ContextPredicate;
+accessible field net/minecraft/block/AbstractBlock$Settings postProcessPredicate Lnet/minecraft/block/AbstractBlock$ContextPredicate;
+accessible field net/minecraft/block/AbstractBlock$Settings emissiveLightingPredicate Lnet/minecraft/block/AbstractBlock$ContextPredicate;
+accessible field net/minecraft/block/AbstractBlock$Settings offsetter Lnet/minecraft/block/AbstractBlock$Offsetter;
+accessible field net/minecraft/block/AbstractBlock$Settings blockBreakParticles Z
+accessible field net/minecraft/block/AbstractBlock$Settings instrument Lnet/minecraft/block/enums/NoteBlockInstrument;
+accessible field net/minecraft/block/AbstractBlock$Settings replaceable Z
