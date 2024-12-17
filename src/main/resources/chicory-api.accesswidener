@@ -29,3 +29,9 @@ accessible field net/minecraft/block/AbstractBlock$Settings offsetter Lnet/minec
 accessible field net/minecraft/block/AbstractBlock$Settings blockBreakParticles Z
 accessible field net/minecraft/block/AbstractBlock$Settings instrument Lnet/minecraft/block/enums/NoteBlockInstrument;
 accessible field net/minecraft/block/AbstractBlock$Settings replaceable Z
+accessible field net/minecraft/loot/LootTable$Builder pools Lcom/google/common/collect/ImmutableList$Builder;
+mutable field net/minecraft/loot/LootTable$Builder pools Lcom/google/common/collect/ImmutableList$Builder;
+accessible field net/minecraft/loot/LootPool$Builder entries Lcom/google/common/collect/ImmutableList$Builder;
+mutable field net/minecraft/loot/LootPool$Builder entries Lcom/google/common/collect/ImmutableList$Builder;
+accessible field net/minecraft/loot/LootPool$Builder rolls Lnet/minecraft/loot/provider/number/LootNumberProvider;
+accessible field net/minecraft/loot/entry/ItemEntry item Lnet/minecraft/registry/entry/RegistryEntry;
