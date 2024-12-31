@@ -6,6 +6,8 @@
 		"RegistriesMixin",
 		"block.AbstractBlockMixin",
 		"block.AbstractBlockMixin$AbstractBlockStateMixin",
+		"block.CampfireBlockMixin",
+		"block.ConduitBlockEntityMixin",
 		"block.NoteBlockMixin"
 	],
 	"injectors": {

@@ -21,6 +21,9 @@
 		],
 		"client": [
 			"net.chikorita_lover.chicory.ChicoryApiClient"
+		],
+		"fabric-datagen": [
+			"net.chikorita_lover.chicory.ChicoryApiDataGenerator"
 		]
 	},
 	"mixins": [
