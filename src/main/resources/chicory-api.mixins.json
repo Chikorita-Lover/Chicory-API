@@ -4,6 +4,7 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"RegistriesMixin",
+		"ShearsItemMixin",
 		"block.AbstractBlockMixin",
 		"block.AbstractBlockMixin$AbstractBlockStateMixin",
 		"block.CampfireBlockMixin",

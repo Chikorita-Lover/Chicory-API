@@ -15,6 +15,7 @@ public final class ChicoryBlockTags {
      * Removing the hay bale from this block tag does not have any effect.
      */
     public static final TagKey<Block> SIGNAL_FIRE_BASE_BLOCKS = of("signal_fire_base_blocks");
+    public static final TagKey<Block> SHEARS_MINEABLE = of("mineable/shears");
 
     private static TagKey<Block> of(String path) {
         return TagKey.of(RegistryKeys.BLOCK, ChicoryApi.of(path));
