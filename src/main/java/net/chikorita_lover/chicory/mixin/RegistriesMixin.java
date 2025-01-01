@@ -1,6 +1,7 @@
 package net.chikorita_lover.chicory.mixin;
 
 import net.chikorita_lover.chicory.impl.BlockSettingsImpl;
+import net.chikorita_lover.chicory.impl.DefaultAttributeImpl;
 import net.minecraft.registry.Registries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,5 +13,6 @@ public abstract class RegistriesMixin {
     @Inject(method = "freezeRegistries", at = @At("HEAD"))
     private static void modifyBlockComponents(CallbackInfo ci) {
         BlockSettingsImpl.modifyBlockSettings();
+        DefaultAttributeImpl.modifyAttributes();
     }
 }

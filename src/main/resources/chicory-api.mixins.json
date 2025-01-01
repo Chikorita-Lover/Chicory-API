@@ -3,6 +3,7 @@
 	"package": "net.chikorita_lover.chicory.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"DefaultAttributeContainerAccessor",
 		"GrowCropsGoalMixin",
 		"RegistriesMixin",
 		"block.AbstractBlockMixin",
