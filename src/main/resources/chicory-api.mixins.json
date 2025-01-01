@@ -10,6 +10,7 @@
 		"block.AbstractBlockMixin$AbstractBlockStateMixin",
 		"block.CampfireBlockMixin",
 		"block.ConduitBlockEntityMixin",
+		"block.DecoratedPotPatternsAccessor",
 		"block.NoteBlockMixin"
 	],
 	"injectors": {
