@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.mixin;
+package net.chikorita_lover.chicory.mixin.entity;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;

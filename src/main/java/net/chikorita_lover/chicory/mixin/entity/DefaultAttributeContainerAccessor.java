@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.mixin;
+package net.chikorita_lover.chicory.mixin.entity;
 
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
