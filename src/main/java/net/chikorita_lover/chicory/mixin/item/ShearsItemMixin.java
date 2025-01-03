@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.mixin;
+package net.chikorita_lover.chicory.mixin.item;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;

@@ -3,8 +3,9 @@
 	"package": "net.chikorita_lover.chicory.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"item.ItemEnchantmentsComponentMixin",
 		"RegistriesMixin",
-		"ShearsItemMixin",
+		"item.ShearsItemMixin",
 		"block.AbstractBlockMixin",
 		"block.AbstractBlockMixin$AbstractBlockStateMixin",
 		"block.CampfireBlockMixin",
