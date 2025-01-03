@@ -1,6 +1,6 @@
 package net.chikorita_lover.chicory.impl;
 
-import net.chikorita_lover.chicory.api.NoteBlockSoundRegistry;
+import net.chikorita_lover.chicory.api.block.NoteBlockSoundRegistry;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.enums.NoteBlockInstrument;

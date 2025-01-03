@@ -1,7 +1,7 @@
 package net.chikorita_lover.chicory.mixin.block;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.chikorita_lover.chicory.api.NoteBlockSoundRegistry;
+import net.chikorita_lover.chicory.api.block.NoteBlockSoundRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.NoteBlock;
 import net.minecraft.registry.entry.RegistryEntry;

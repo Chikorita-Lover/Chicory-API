@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.api;
+package net.chikorita_lover.chicory.api.block;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

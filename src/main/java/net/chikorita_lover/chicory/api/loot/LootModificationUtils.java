@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.api;
+package net.chikorita_lover.chicory.api.loot;
 
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.loot.v3.FabricLootPoolBuilder;

@@ -1,8 +1,8 @@
 package net.chikorita_lover.chicory.mixin.item;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.chikorita_lover.chicory.api.EnchantmentTooltipEntries;
-import net.chikorita_lover.chicory.api.EnchantmentTooltipEvents;
+import net.chikorita_lover.chicory.api.enchantment.EnchantmentTooltipEntries;
+import net.chikorita_lover.chicory.api.enchantment.EnchantmentTooltipEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;

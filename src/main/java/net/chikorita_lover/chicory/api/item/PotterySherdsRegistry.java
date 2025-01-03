@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.api;
+package net.chikorita_lover.chicory.api.item;
 
 import net.chikorita_lover.chicory.mixin.block.DecoratedPotPatternsAccessor;
 import net.fabricmc.fabric.impl.content.registry.util.ImmutableCollectionUtils;

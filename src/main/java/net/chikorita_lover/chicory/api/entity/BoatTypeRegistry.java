@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.api;
+package net.chikorita_lover.chicory.api.entity;
 
 import net.chikorita_lover.chicory.ChicoryApi;
 import net.chikorita_lover.chicory.mixin.entity.BoatEntityTypeAccessor;

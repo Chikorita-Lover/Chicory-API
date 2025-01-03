@@ -1,7 +1,7 @@
 package net.chikorita_lover.chicory.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.chikorita_lover.chicory.api.BoatTypeRegistry;
+import net.chikorita_lover.chicory.api.entity.BoatTypeRegistry;
 import net.minecraft.client.render.entity.BoatEntityRenderer;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.util.Identifier;

@@ -1,6 +1,6 @@
 package net.chikorita_lover.chicory.impl;
 
-import net.chikorita_lover.chicory.api.DefaultAttributeEvents;
+import net.chikorita_lover.chicory.api.entity.DefaultAttributeEvents;
 import net.chikorita_lover.chicory.mixin.entity.DefaultAttributeContainerAccessor;
 import net.fabricmc.fabric.mixin.object.builder.DefaultAttributeRegistryAccessor;
 import net.minecraft.entity.EntityType;

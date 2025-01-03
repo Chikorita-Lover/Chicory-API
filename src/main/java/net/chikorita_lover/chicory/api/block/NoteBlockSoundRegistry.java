@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.api;
+package net.chikorita_lover.chicory.api.block;
 
 import net.chikorita_lover.chicory.impl.NoteBlockSoundRegistryImpl;
 import net.fabricmc.fabric.api.util.Block2ObjectMap;

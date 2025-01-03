@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.api;
+package net.chikorita_lover.chicory.api.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.registry.RegistryKey;

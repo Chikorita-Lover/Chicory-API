@@ -1,6 +1,6 @@
 package net.chikorita_lover.chicory.mixin.block;
 
-import net.chikorita_lover.chicory.api.BlockSettingsHolder;
+import net.chikorita_lover.chicory.api.block.BlockSettingsHolder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

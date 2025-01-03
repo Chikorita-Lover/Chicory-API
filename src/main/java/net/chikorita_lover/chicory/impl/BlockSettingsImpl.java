@@ -1,7 +1,7 @@
 package net.chikorita_lover.chicory.impl;
 
-import net.chikorita_lover.chicory.api.BlockSettingsEvents;
-import net.chikorita_lover.chicory.api.BlockSettingsHolder;
+import net.chikorita_lover.chicory.api.block.BlockSettingsEvents;
+import net.chikorita_lover.chicory.api.block.BlockSettingsHolder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
