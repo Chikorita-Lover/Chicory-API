@@ -3,9 +3,8 @@
 	"package": "net.chikorita_lover.chicory.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"item.ItemEnchantmentsComponentMixin",
+		"DataPackContentsMixin",
 		"RegistriesMixin",
-		"item.ShearsItemMixin",
 		"block.AbstractBlockMixin",
 		"block.AbstractBlockMixin$AbstractBlockStateMixin",
 		"block.CampfireBlockMixin",
@@ -17,7 +16,9 @@
 		"entity.BoatEntityTypeMixin",
 		"entity.ChestBoatEntityMixin",
 		"entity.DefaultAttributeContainerAccessor",
-		"entity.GrowCropsGoalMixin"
+		"entity.GrowCropsGoalMixin",
+		"item.ItemEnchantmentsComponentMixin",
+		"item.ShearsItemMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
