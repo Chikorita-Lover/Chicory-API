@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.mixin;
+package net.chikorita_lover.chicory.mixin.server;
 
 import net.chikorita_lover.chicory.api.registry.TagKeyEvents;
 import net.chikorita_lover.chicory.impl.TagKeyEventsImpl;
