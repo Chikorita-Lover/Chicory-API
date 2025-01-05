@@ -91,8 +91,18 @@ public class ChicoryAdvancementBuilder {
      *
      * @param experience the new experience value
      */
-    public ChicoryAdvancementBuilder experience(int experience) {
+    public ChicoryAdvancementBuilder setExperience(int experience) {
         this.rewards(new AdvancementRewards(experience, this.rewards.loot(), this.rewards.recipes(), this.rewards.function()));
+        return this;
+    }
+
+    /**
+     * Increases the advancement's experience reward upon completion while maintaining all previous rewards.
+     *
+     * @param experience the experience value to add to the advancement's original experience reward
+     */
+    public ChicoryAdvancementBuilder addExperience(int experience) {
+        this.rewards(new AdvancementRewards(this.rewards.experience() + experience, this.rewards.loot(), this.rewards.recipes(), this.rewards.function()));
         return this;
     }
 
@@ -145,6 +155,17 @@ public class ChicoryAdvancementBuilder {
     public ChicoryAdvancementBuilder orCriterion(String name, AdvancementCriterion<?> criterion) {
         this.criteria.put(name, criterion);
         this.requirements.forEach(list -> list.add(name));
+        return this;
+    }
+
+    /**
+     * Adds a criterion that may be completed in alternative to other existing criteria in the {@code index} criterion array in order to complete the advancement.
+     *
+     * @param index the index of the array to add an alternative criterion to
+     */
+    public ChicoryAdvancementBuilder orCriterion(int index, String name, AdvancementCriterion<?> criterion) {
+        this.criteria.put(name, criterion);
+        this.requirements.get(index).add(name);
         return this;
     }
 

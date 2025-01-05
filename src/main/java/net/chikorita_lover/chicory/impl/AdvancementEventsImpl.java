@@ -21,9 +21,9 @@ public class AdvancementEventsImpl {
     }
 
     private static Event<AdvancementEvents.Modify> createModifyEvent(Identifier id) {
-        return EventFactory.createArrayBacked(AdvancementEvents.Modify.class, callbacks -> builder -> {
+        return EventFactory.createArrayBacked(AdvancementEvents.Modify.class, callbacks -> (builder, registries) -> {
             for (AdvancementEvents.Modify callback : callbacks) {
-                callback.modify(builder);
+                callback.modify(builder, registries);
             }
         });
     }
