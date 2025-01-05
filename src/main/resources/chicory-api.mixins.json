@@ -16,6 +16,7 @@
 		"entity.ChestBoatEntityMixin",
 		"entity.DefaultAttributeContainerAccessor",
 		"entity.GrowCropsGoalMixin",
+		"entity.ParrotEntityAccessor",
 		"item.ItemEnchantmentsComponentMixin",
 		"item.ShearsItemMixin",
 		"server.DataPackContentsMixin",
