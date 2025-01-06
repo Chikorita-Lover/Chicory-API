@@ -23,7 +23,7 @@ public class AdvancementEventsImpl {
     private static Event<AdvancementEvents.Modify> createModifyEvent(Identifier id) {
         return EventFactory.createArrayBacked(AdvancementEvents.Modify.class, callbacks -> (builder, registries) -> {
             for (AdvancementEvents.Modify callback : callbacks) {
-                callback.modify(builder, registries);
+                callback.modifyAdvancement(builder, registries);
             }
         });
     }

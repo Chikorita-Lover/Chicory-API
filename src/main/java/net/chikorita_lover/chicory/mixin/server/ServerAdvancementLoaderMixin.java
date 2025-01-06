@@ -24,15 +24,16 @@ public class ServerAdvancementLoaderMixin {
 
     @ModifyVariable(method = "method_20723", at = @At(value = "STORE"))
     private Advancement modifyAdvancement(Advancement advancement, @Local(argsOnly = true) Identifier id) {
+        ChicoryAdvancementBuilder builder = new ChicoryAdvancementBuilder(advancement);
         Event<AdvancementEvents.Modify> event = AdvancementEventsImpl.getModifyEvent(id);
-        if (event != null) {
-            ChicoryAdvancementBuilder builder = new ChicoryAdvancementBuilder(advancement);
-            try {
-                event.invoker().modify(builder, this.registryLookup);
-                advancement = builder.build();
-            } catch (Exception exception) {
-                ChicoryApi.LOGGER.error("Parsing error modifying advancement {}: {}", id, exception.getMessage());
+        try {
+            AdvancementEvents.MODIFY_ALL.invoker().modifyAdvancement(id, builder, this.registryLookup);
+            if (event != null) {
+                event.invoker().modifyAdvancement(builder, this.registryLookup);
             }
+            advancement = builder.build();
+        } catch (Exception exception) {
+            ChicoryApi.LOGGER.error("Parsing error modifying advancement {}: {}", id, exception.getMessage());
         }
         return advancement;
     }
