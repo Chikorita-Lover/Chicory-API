@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.mixin;
+package net.chikorita_lover.chicory.mixin.recipe;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;

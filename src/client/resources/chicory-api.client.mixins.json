@@ -4,6 +4,9 @@
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"BoatEntityRendererMixin",
+		"recipe.ClientRecipeBookMixin",
+		"recipe.RecipeBookGroupAccessor",
+		"recipe.RecipeBookGroupMixin",
 		"SplashTextResourceSupplierMixin"
 	],
 	"injectors": {

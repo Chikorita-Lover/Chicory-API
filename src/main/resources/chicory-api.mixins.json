@@ -3,7 +3,6 @@
 	"package": "net.chikorita_lover.chicory.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"RecipeManagerMixin",
 		"RegistriesMixin",
 		"block.AbstractBlockMixin",
 		"block.AbstractBlockMixin$AbstractBlockStateMixin",
@@ -20,6 +19,9 @@
 		"entity.ParrotEntityAccessor",
 		"item.ItemEnchantmentsComponentMixin",
 		"item.ShearsItemMixin",
+		"recipe.RecipeBookCategoryAccessor",
+		"recipe.RecipeBookOptionsAccessor",
+		"recipe.RecipeManagerMixin",
 		"server.DataPackContentsMixin",
 		"server.ServerAdvancementLoaderMixin"
 	],
