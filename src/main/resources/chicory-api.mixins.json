@@ -10,6 +10,8 @@
 		"block.ConduitBlockEntityMixin",
 		"block.DecoratedPotPatternsAccessor",
 		"block.NoteBlockMixin",
+		"entity.AbstractMinecartEntityMixin",
+		"entity.AbstractMinecartEntityTypeAccessor",
 		"entity.BoatEntityMixin",
 		"entity.BoatEntityTypeAccessor",
 		"entity.BoatEntityTypeMixin",
