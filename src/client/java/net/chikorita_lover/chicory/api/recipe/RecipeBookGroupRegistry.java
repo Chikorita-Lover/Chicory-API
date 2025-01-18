@@ -28,7 +28,7 @@ public final class RecipeBookGroupRegistry {
     @SuppressWarnings("UnreachableCode")
     public static RecipeBookGroup register(String name, ItemStack... entries) {
         List<RecipeBookGroup> values = new ArrayList<>(Arrays.asList(RecipeBookGroupAccessor.getValues()));
-        int ordinal = values.getLast().ordinal() + 1;
+        int ordinal = values.size();
         RecipeBookGroup group = RecipeBookGroupAccessor.create(name.toUpperCase(), ordinal, entries);
         values.add(group);
         RecipeBookGroupAccessor.setValues(values.toArray(RecipeBookGroup[]::new));

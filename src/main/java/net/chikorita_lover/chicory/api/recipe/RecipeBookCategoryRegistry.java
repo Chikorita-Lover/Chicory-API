@@ -20,18 +20,18 @@ public final class RecipeBookCategoryRegistry {
      * Creates and returns a new recipe book category.
      * This also creates the keys necessary for storing player NBT related to recipe book categories.
      *
-     * @param name the internal name of the recipe book category
+     * @param name the internal name
      * @return the new recipe book category
      */
     @SuppressWarnings("UnreachableCode")
     public static RecipeBookCategory register(String name) {
         List<RecipeBookCategory> values = new ArrayList<>(Arrays.asList(RecipeBookCategoryAccessor.getValues()));
-        int ordinal = values.getLast().ordinal() + 1;
+        int ordinal = values.size();
         RecipeBookCategory category = RecipeBookCategoryAccessor.create(name.toUpperCase(), ordinal);
         values.add(category);
         RecipeBookCategoryAccessor.setValues(values.toArray(RecipeBookCategory[]::new));
-        name = "is" + WordUtils.capitalize(category.name().toLowerCase(), '_').replace("_", "");
-        getOptionNames().put(category, Pair.of(name.concat("GuiOpen"), name.concat("FilteringCraftable")));
+        String prefix = "is" + WordUtils.capitalize(category.name().toLowerCase(), '_').replace("_", "");
+        getOptionNames().put(category, Pair.of(prefix.concat("GuiOpen"), prefix.concat("FilteringCraftable")));
         return category;
     }
 
