@@ -19,6 +19,7 @@
 		"entity.DefaultAttributeContainerAccessor",
 		"entity.GrowCropsGoalMixin",
 		"entity.ParrotEntityAccessor",
+		"entity.PlayerInventoryMixin",
 		"item.GoatHornItemMixin",
 		"item.ItemEnchantmentsComponentMixin",
 		"item.OminousBottleItemMixin",

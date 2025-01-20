@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "chicory-api",
+	"id": "chicory",
 	"version": "${version}",
 	"name": "Chicory API",
 	"description": "Contains utilities essential to all of Chikorita Lover's mods.",

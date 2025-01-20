@@ -2,6 +2,7 @@ package net.chikorita_lover.chicory;
 
 import net.chikorita_lover.chicory.api.advancement.AdvancementExtensionRegistries;
 import net.chikorita_lover.chicory.api.registry.TagKeyEvents;
+import net.chikorita_lover.chicory.recipe.ChicoryRecipeSerializers;
 import net.chikorita_lover.chicory.registry.tag.ChicoryEntityTypeTags;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.registry.Registries;
@@ -19,6 +20,7 @@ public class ChicoryApi implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ChicoryRecipeSerializers.register();
         AdvancementExtensionRegistries.registerAdvancementEvents();
         TagKeyEvents.modifyEntriesEvent(ChicoryEntityTypeTags.MONSTERS).register((registries, entries) -> {
             Registries.ENTITY_TYPE.streamEntries().filter(entity -> !entity.value().getSpawnGroup().isPeaceful()).forEach(entries::add);
