@@ -4,6 +4,7 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"RegistriesMixin",
+		"ToggleableFeatureMixin",
 		"block.AbstractBlockMixin",
 		"block.AbstractBlockMixin$AbstractBlockStateMixin",
 		"block.CampfireBlockMixin",
@@ -18,6 +19,7 @@
 		"entity.ChestBoatEntityMixin",
 		"entity.DefaultAttributeContainerAccessor",
 		"entity.GrowCropsGoalMixin",
+		"entity.MerchantEntityMixin",
 		"entity.ParrotEntityAccessor",
 		"entity.PlayerInventoryMixin",
 		"item.GoatHornItemMixin",
@@ -29,7 +31,8 @@
 		"recipe.RecipeBookOptionsAccessor",
 		"recipe.RecipeManagerMixin",
 		"server.DataPackContentsMixin",
-		"server.ServerAdvancementLoaderMixin"
+		"server.ServerAdvancementLoaderMixin",
+		"server.ServerRecipeBookMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

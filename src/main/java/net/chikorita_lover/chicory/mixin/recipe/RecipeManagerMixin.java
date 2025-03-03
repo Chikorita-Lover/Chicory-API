@@ -4,11 +4,15 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.gson.JsonElement;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.chikorita_lover.chicory.ChicoryApi;
 import net.chikorita_lover.chicory.api.recipe.RecipeEvents;
+import net.chikorita_lover.chicory.api.resource.ToggleableFeatureRegistry;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -21,6 +25,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -52,5 +57,10 @@ public class RecipeManagerMixin {
         }
         this.recipesByType = recipesByType.build();
         this.recipesById = recipesById.build();
+    }
+
+    @ModifyReturnValue(method = "getAllOfType", at = @At("RETURN"))
+    private <I extends RecipeInput, T extends Recipe<I>> Collection<RecipeEntry<T>> getAllEnabled(Collection<RecipeEntry<T>> recipes) {
+        return recipes.stream().filter(recipe -> ToggleableFeatureRegistry.isRecipeEnabled(recipe.value(), this.registryLookup)).toList();
     }
 }
