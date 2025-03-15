@@ -16,10 +16,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class Config {
@@ -27,9 +24,9 @@ public class Config {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static boolean frozen;
     private final String name;
-    private final Map<String, ConfigProperty<?>> properties = new HashMap<>();
+    private final Map<String, ConfigProperty<?>> properties = new LinkedHashMap<>();
     private final Map<ConfigProperty<?>, ConfigCategory> propertyToCategory = new HashMap<>();
-    private final Map<ConfigCategory, List<ConfigProperty<?>>> propertiesByCategory = new HashMap<>();
+    private final Map<ConfigCategory, List<ConfigProperty<?>>> propertiesByCategory = new LinkedHashMap<>();
     private final Path filePath;
     private ConfigValues values;
 
