@@ -15,7 +15,7 @@ public class FloatConfigProperty extends NumberConfigProperty<Float> {
     }
 
     @Override
-    protected Float parse(String value) {
+    public Float parse(String value) {
         return Float.parseFloat(value);
     }
 

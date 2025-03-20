@@ -15,7 +15,7 @@ public class DoubleConfigProperty extends NumberConfigProperty<Double> {
     }
 
     @Override
-    protected Double parse(String value) {
+    public Double parse(String value) {
         return Double.parseDouble(value);
     }
 

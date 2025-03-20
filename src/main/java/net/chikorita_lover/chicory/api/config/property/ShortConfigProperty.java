@@ -15,7 +15,7 @@ public class ShortConfigProperty extends NumberConfigProperty<Short> {
     }
 
     @Override
-    protected Short parse(String value) {
+    public Short parse(String value) {
         return Short.parseShort(value);
     }
 

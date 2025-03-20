@@ -15,7 +15,7 @@ public class IntConfigProperty extends NumberConfigProperty<Integer> {
     }
 
     @Override
-    protected Integer parse(String value) {
+    public Integer parse(String value) {
         return Integer.parseInt(value);
     }
 

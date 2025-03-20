@@ -22,10 +22,6 @@ public abstract class NumberConfigProperty<T extends Number> extends ConfigPrope
         this.max = max;
     }
 
-    public Value<T> createValue(String value) {
-        return this.createValue(this.parse(value));
-    }
-
     public boolean isValid(String value) {
         try {
             return this.isValid(this.parse(value));
@@ -34,7 +30,7 @@ public abstract class NumberConfigProperty<T extends Number> extends ConfigPrope
         }
     }
 
-    protected abstract T parse(String value);
+    public abstract T parse(String value);
 
     @Override
     public boolean isValid(T value) {
