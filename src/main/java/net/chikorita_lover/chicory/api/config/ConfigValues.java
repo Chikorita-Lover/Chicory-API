@@ -18,6 +18,7 @@ public class ConfigValues {
 
     public ConfigValues(Config config) {
         this.config = config;
+        config.getProperties().forEach(property -> this.values.put(property, property.createValue()));
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})

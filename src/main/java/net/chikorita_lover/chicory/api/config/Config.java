@@ -2,7 +2,10 @@ package net.chikorita_lover.chicory.api.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.*;
 import net.chikorita_lover.chicory.ChicoryApi;
 import net.chikorita_lover.chicory.api.config.property.ConfigProperty;
 import net.chikorita_lover.chicory.network.SyncConfigS2CPacket;
@@ -17,7 +20,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class Config {
     private static final Map<String, Config> CONFIGS = new HashMap<>();
@@ -29,6 +32,7 @@ public class Config {
     private final Map<ConfigCategory, List<ConfigProperty<?>>> propertiesByCategory = new LinkedHashMap<>();
     private final Path filePath;
     private ConfigValues values;
+    private MapCodec<ConfigValues> codec;
 
     public Config(String name) {
         assertNotFrozen();
@@ -54,6 +58,7 @@ public class Config {
             return;
         }
         frozen = true;
+        CONFIGS.values().forEach(Config::freeze);
         ServerLifecycleEvents.SERVER_STARTING.register(server -> Config.reloadConfigs());
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> CONFIGS.values().forEach(config -> {
             final ConfigValues commonValues = new ConfigValues(config);
@@ -78,13 +83,13 @@ public class Config {
      * @param category the category to assign the property to
      * @return a supplier that returns the property's assigned value
      */
-    public <T> Supplier<T> register(final ConfigProperty<T> property, ConfigCategory category) {
+    public <T extends ConfigProperty<?>> T register(T property, ConfigCategory category) {
         assertNotFrozen();
         this.properties.put(property.getName(), property);
         this.propertyToCategory.put(property, category);
         this.propertiesByCategory.computeIfAbsent(category, ignored -> new ArrayList<>()).add(property);
         this.values.put(property.createValue());
-        return () -> this.get(property);
+        return property;
     }
 
     /**
@@ -96,7 +101,7 @@ public class Config {
         return this.values.get(property).value();
     }
 
-    public ConfigProperty getProperty(String name) {
+    public ConfigProperty<?> getProperty(String name) {
         return this.properties.get(name);
     }
 
@@ -120,8 +125,8 @@ public class Config {
     }
 
     @ApiStatus.Internal
-    public ConfigCategory getCategory(ConfigProperty<?> property) {
-        return this.propertyToCategory.get(property);
+    public List<ConfigProperty<?>> getProperties() {
+        return this.properties.values().stream().toList();
     }
 
     @ApiStatus.Internal
@@ -140,32 +145,56 @@ public class Config {
     }
 
     @ApiStatus.Internal
+    private void freeze() {
+        this.codec = new MapCodec<>() {
+            @Override
+            public <T> RecordBuilder<T> encode(ConfigValues input, DynamicOps<T> ops, final RecordBuilder<T> prefix) {
+                input.forEach(value -> prefix.add(value.property().getName(), value.value(), value.property().codec()));
+                return prefix;
+            }
+
+            @Override
+            public <T> DataResult<ConfigValues> decode(final DynamicOps<T> ops, MapLike<T> input) {
+                try {
+                    ConfigValues values = new ConfigValues(Config.this);
+                    input.entries().map(pair -> {
+                        ConfigProperty property = Config.this.getProperty(ops.getStringValue(pair.getFirst()).getOrThrow());
+                        return ((DataResult<Pair>) property.codec().decode(ops, pair.getSecond())).map(Pair::getFirst).map(property::createValue).result().orElse(property.createValue());
+                    }).forEach(values::put);
+                    return DataResult.success(values);
+                } catch (Exception e) {
+                    return DataResult.error(e::getMessage);
+                }
+            }
+
+            @Override
+            public <T> Stream<T> keys(DynamicOps<T> ops) {
+                return Config.this.properties.keySet().stream().map(ops::createString);
+            }
+        };
+    }
+
+    @ApiStatus.Internal
     public void loadValues() {
         if (Files.exists(this.filePath)) {
             try (Reader reader = Files.newBufferedReader(this.filePath)) {
                 JsonObject json = GSON.fromJson(reader, JsonObject.class);
-                for (String key : json.keySet()) {
-                    if (this.properties.containsKey(key)) {
-                        this.values.put(this.properties.get(key).deserialize(json));
-                    }
-                }
+                this.setValues(this.codec.codec().decode(JsonOps.INSTANCE, json).getOrThrow().getFirst());
             } catch (Exception e) {
-                ChicoryApi.LOGGER.error("Could not read config values for mod {}: {}", this.name, e.getLocalizedMessage());
+                ChicoryApi.LOGGER.error("Could not read config values for mod {}: {}", this.name, e.getMessage());
             }
         } else {
             this.saveValues();
         }
     }
 
-    @SuppressWarnings("unchecked")
     @ApiStatus.Internal
     public void saveValues() {
         try (Writer writer = Files.newBufferedWriter(this.filePath)) {
-            final JsonObject json = new JsonObject();
-            this.values.forEach(value -> json.add(value.property().getName(), value.property().serialize(value)));
+            JsonElement json = this.codec.codec().encodeStart(JsonOps.INSTANCE, this.values).getOrThrow();
             GSON.toJson(json, writer);
         } catch (Exception e) {
-            ChicoryApi.LOGGER.error("Could not write config values for mod {}: {}", this.name, e.getLocalizedMessage());
+            ChicoryApi.LOGGER.error("Could not write config values for mod {}: {}", this.name, e.getMessage());
         }
     }
 }
