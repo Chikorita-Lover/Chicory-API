@@ -89,6 +89,7 @@ public class Config {
         this.propertyToCategory.put(property, category);
         this.propertiesByCategory.computeIfAbsent(category, ignored -> new ArrayList<>()).add(property);
         this.values.put(property.createValue());
+        property.setConfig(this);
         return property;
     }
 

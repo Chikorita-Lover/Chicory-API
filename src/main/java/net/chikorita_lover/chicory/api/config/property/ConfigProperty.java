@@ -6,16 +6,35 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import io.netty.buffer.ByteBuf;
 import net.chikorita_lover.chicory.ChicoryApi;
+import net.chikorita_lover.chicory.api.config.Config;
+import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import org.jetbrains.annotations.ApiStatus;
 
-public abstract class ConfigProperty<T> {
+import java.util.function.Supplier;
+
+public abstract class ConfigProperty<T> implements Supplier<T> {
     protected final T defaultValue;
     private final String name;
+    private Config config;
 
     public ConfigProperty(String name, T defaultValue) {
         this.name = name;
         this.defaultValue = defaultValue;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getTranslationKey() {
+        return "config." + this.config.getName() + "." + this.name;
+    }
+
+    public void setConfig(Config config) {
+        if (this.config == null) {
+            this.config = config;
+        }
     }
 
     public Value<T> createValue() {
@@ -38,10 +57,6 @@ public abstract class ConfigProperty<T> {
 
     public abstract PacketCodec<ByteBuf, T> packetCodec();
 
-    public String getName() {
-        return this.name;
-    }
-
     public T getDefaultValue() {
         return this.defaultValue;
     }
@@ -52,6 +67,11 @@ public abstract class ConfigProperty<T> {
 
     public JsonElement serialize(Value<T> value) {
         return this.codec().encodeStart(JsonOps.INSTANCE, value.value()).getOrThrow();
+    }
+
+    @Override
+    public T get() {
+        return Config.getConfig(this.getName()).get(this);
     }
 
     @ApiStatus.Internal

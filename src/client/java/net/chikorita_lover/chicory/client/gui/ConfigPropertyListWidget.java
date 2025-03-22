@@ -2,9 +2,9 @@ package net.chikorita_lover.chicory.client.gui;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import net.chikorita_lover.chicory.api.config.ConfigCategory;
 import net.chikorita_lover.chicory.api.config.property.BooleanConfigProperty;
 import net.chikorita_lover.chicory.api.config.property.ConfigProperty;
+import net.chikorita_lover.chicory.api.config.property.EnumConfigProperty;
 import net.chikorita_lover.chicory.api.config.property.NumberConfigProperty;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -21,12 +21,13 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Formatting;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
+@ApiStatus.Internal
 public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyListWidget.AbstractPropertyWidget> {
     private static final int ROW_WIDTH = 230;
     private static final int FIELD_WIDTH = 45;
@@ -35,30 +36,33 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
     public ConfigPropertyListWidget(ConfigScreen parent) {
         super(MinecraftClient.getInstance(), parent.width, parent.layout.getContentHeight(), parent.layout.getHeaderHeight(), 24);
         this.parent = parent;
-        Map<ConfigCategory, List<ConfigProperty<?>>> propertiesByCategory = this.parent.config.getPropertiesByCategory();
-        propertiesByCategory.forEach((category, properties) -> {
+        parent.config.getPropertiesByCategory().forEach((category, properties) -> {
             this.addEntry(new PropertyCategoryWidget(Text.translatable("config.category." + this.parent.config.getName() + "." + category.name()).formatted(Formatting.YELLOW, Formatting.BOLD)));
-            properties.stream().sorted(Comparator.comparing(ConfigProperty::getName)).forEach(property -> {
-                Text name = Text.translatable("config." + this.parent.config.getName() + "." + property.getName());
-                if (property instanceof NumberConfigProperty<?> numberProperty) {
-                    this.addEntry(new NumberPropertyWidget(name, this.createDescription(property), numberProperty));
-                }
-                if (property instanceof BooleanConfigProperty booleanProperty) {
-                    this.addEntry(new BooleanPropertyWidget(name, this.createDescription(property), booleanProperty));
-                }
-            });
+            properties.stream().sorted(Comparator.comparing(ConfigProperty::getName)).forEach(this::addPropertyEntry);
         });
     }
 
-    private List<OrderedText> createDescription(ConfigProperty<?> property) {
+    protected static List<OrderedText> createDescription(ConfigProperty<?> property) {
         ImmutableList.Builder<OrderedText> builder = ImmutableList.builder();
         builder.add(Text.literal(property.getName()).formatted(Formatting.YELLOW).asOrderedText());
-        String description = "config." + this.parent.config.getName() + "." + property.getName() + ".description";
+        String description = property.getTranslationKey().concat(".description");
         if (I18n.hasTranslation(description)) {
             MinecraftClient.getInstance().textRenderer.wrapLines(Text.translatable(description), 175).forEach(builder::add);
         }
         builder.add(Text.translatable("editGamerule.default", property.getDefaultValue()).formatted(Formatting.GRAY).asOrderedText());
         return builder.build();
+    }
+
+    private void addPropertyEntry(ConfigProperty<?> property) {
+        if (property instanceof NumberConfigProperty<?> numberProperty) {
+            this.addEntry(new NumberPropertyWidget(numberProperty));
+        }
+        if (property instanceof BooleanConfigProperty booleanProperty) {
+            this.addEntry(new BooleanPropertyWidget(booleanProperty));
+        }
+        if (property instanceof EnumConfigProperty<?> enumProperty) {
+            this.addEntry(new EnumPropertyWidget<>(enumProperty));
+        }
     }
 
     @Override
@@ -118,7 +122,7 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
 
     public abstract static class AbstractNamedPropertyWidget extends AbstractPropertyWidget {
         protected final List<ClickableWidget> children = Lists.newArrayList();
-        private final List<OrderedText> name;
+        protected final List<OrderedText> name;
 
         public AbstractNamedPropertyWidget(@Nullable List<OrderedText> description, Text name) {
             super(description);
@@ -146,9 +150,9 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
     public class NumberPropertyWidget extends AbstractNamedPropertyWidget {
         private final TextFieldWidget valueWidget;
 
-        public <T extends Number> NumberPropertyWidget(Text name, List<OrderedText> description, final NumberConfigProperty<T> property) {
-            super(description, name);
-            this.valueWidget = new TextFieldWidget(MinecraftClient.getInstance().textRenderer, 10, 5, FIELD_WIDTH - 1, 20, name.copy().append("\n").append(property.getName()).append("\n"));
+        public <T extends Number> NumberPropertyWidget(final NumberConfigProperty<T> property) {
+            super(createDescription(property), Text.translatable(property.getTranslationKey()));
+            this.valueWidget = new TextFieldWidget(MinecraftClient.getInstance().textRenderer, 10, 5, FIELD_WIDTH - 1, 20, Text.translatable(property.getTranslationKey()).append("\n").append(property.getName()).append("\n"));
             this.valueWidget.setText(ConfigPropertyListWidget.this.parent.config.get(property).toString());
             this.valueWidget.setChangedListener(value -> {
                 if (property.isValid(value)) {
@@ -175,9 +179,27 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
     public class BooleanPropertyWidget extends AbstractNamedPropertyWidget {
         private final CyclingButtonWidget<Boolean> toggleButton;
 
-        public BooleanPropertyWidget(Text name, List<OrderedText> description, final BooleanConfigProperty property) {
-            super(description, name);
-            this.toggleButton = CyclingButtonWidget.onOffBuilder(ConfigPropertyListWidget.this.parent.config.get(property)).omitKeyText().narration(button -> button.getGenericNarrationMessage().append("\n").append(property.getName())).build(10, 5, FIELD_WIDTH - 1, 20, name, (button, value) -> ConfigPropertyListWidget.this.parent.config.set(property, value));
+        public BooleanPropertyWidget(final BooleanConfigProperty property) {
+            super(createDescription(property), Text.translatable(property.getTranslationKey()));
+            this.toggleButton = CyclingButtonWidget.onOffBuilder(ConfigPropertyListWidget.this.parent.config.get(property)).omitKeyText().narration(button -> button.getGenericNarrationMessage().append("\n").append(property.getName())).build(10, 5, FIELD_WIDTH - 1, 20, Text.translatable(property.getTranslationKey()), (button, value) -> ConfigPropertyListWidget.this.parent.config.set(property, value));
+            this.toggleButton.active = MinecraftClient.getInstance().world == null;
+            this.children.add(this.toggleButton);
+        }
+
+        @Override
+        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            this.draw(context, x, y);
+            this.toggleButton.setPosition(x + entryWidth - FIELD_WIDTH, y);
+            this.toggleButton.render(context, mouseX, mouseY, tickDelta);
+        }
+    }
+
+    public class EnumPropertyWidget<E extends Enum<E>> extends AbstractNamedPropertyWidget {
+        private final CyclingButtonWidget<E> toggleButton;
+
+        public EnumPropertyWidget(final EnumConfigProperty<E> property) {
+            super(createDescription(property), Text.translatable(property.getTranslationKey()));
+            this.toggleButton = CyclingButtonWidget.builder(property::getText).values(property.getType().getEnumConstants()).initially(property.getDefaultValue()).omitKeyText().narration(button -> button.getGenericNarrationMessage().append("\n").append(property.getName())).build(10, 5, FIELD_WIDTH - 1, 20, Text.translatable(property.getTranslationKey()), (button, value) -> ConfigPropertyListWidget.this.parent.config.set(property, value));
             this.toggleButton.active = MinecraftClient.getInstance().world == null;
             this.children.add(this.toggleButton);
         }
