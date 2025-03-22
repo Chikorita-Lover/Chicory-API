@@ -61,6 +61,6 @@ public class RecipeManagerMixin {
 
     @ModifyReturnValue(method = "getAllOfType", at = @At("RETURN"))
     private <I extends RecipeInput, T extends Recipe<I>> Collection<RecipeEntry<T>> getAllEnabled(Collection<RecipeEntry<T>> recipes) {
-        return recipes.stream().filter(recipe -> ToggleableFeatureRegistry.isRecipeEnabled(recipe.value(), this.registryLookup)).toList();
+        return recipes.stream().filter(recipe -> ToggleableFeatureRegistry.isRecipeEnabled(recipe, this.registryLookup)).toList();
     }
 }

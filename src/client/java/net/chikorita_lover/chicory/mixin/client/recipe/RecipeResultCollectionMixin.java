@@ -17,6 +17,6 @@ public abstract class RecipeResultCollectionMixin {
 
     @ModifyExpressionValue(method = "computeCraftables", at = @At(value = "INVOKE", target = "Lnet/minecraft/recipe/book/RecipeBook;contains(Lnet/minecraft/recipe/RecipeEntry;)Z"))
     private boolean canDisplayRecipe(boolean contained, @Local RecipeEntry<?> recipeEntry) {
-        return contained && ToggleableFeatureRegistry.isRecipeEnabled(recipeEntry.value(), this.getRegistryManager());
+        return contained && ToggleableFeatureRegistry.isRecipeEnabled(recipeEntry, this.getRegistryManager());
     }
 }

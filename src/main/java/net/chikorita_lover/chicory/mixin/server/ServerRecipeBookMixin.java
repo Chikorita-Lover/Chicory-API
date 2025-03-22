@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ServerRecipeBook.class)
 public class ServerRecipeBookMixin extends RecipeBook {
     @ModifyExpressionValue(method = "unlockRecipes", at = @At(value = "INVOKE", target = "Lnet/minecraft/recipe/Recipe;isIgnoredInRecipeBook()Z"))
-    private boolean isRecipeNotUnlockable(boolean isIgnored, @Local(argsOnly = true) ServerPlayerEntity player, @Local RecipeEntry<?> recipeEntry) {
-        return isIgnored || !ToggleableFeatureRegistry.isRecipeEnabled(recipeEntry.value(), player.getWorld().getRegistryManager());
+    private boolean isRecipeNotUnlockable(boolean ignored, @Local(argsOnly = true) ServerPlayerEntity player, @Local RecipeEntry<?> recipe) {
+        return ignored || !ToggleableFeatureRegistry.isRecipeEnabled(recipe, player.getRegistryManager());
     }
 }
