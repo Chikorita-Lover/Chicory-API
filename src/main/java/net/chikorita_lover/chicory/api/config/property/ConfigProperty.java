@@ -7,7 +7,6 @@ import com.mojang.serialization.JsonOps;
 import io.netty.buffer.ByteBuf;
 import net.chikorita_lover.chicory.ChicoryApi;
 import net.chikorita_lover.chicory.api.config.Config;
-import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -71,7 +70,7 @@ public abstract class ConfigProperty<T> implements Supplier<T> {
 
     @Override
     public T get() {
-        return Config.getConfig(this.getName()).get(this);
+        return this.config.get(this);
     }
 
     @ApiStatus.Internal
