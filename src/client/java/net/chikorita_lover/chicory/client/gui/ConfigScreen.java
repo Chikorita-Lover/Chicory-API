@@ -15,7 +15,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
-@ApiStatus.Internal
 @Environment(EnvType.CLIENT)
 public class ConfigScreen extends Screen {
     protected final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this);
@@ -69,7 +68,7 @@ public class ConfigScreen extends Screen {
         this.updateDoneButton();
     }
 
-    private void updateDoneButton() {
+    protected void updateDoneButton() {
         if (this.doneButton != null) {
             this.doneButton.active = this.invalidPropertyWidgets.isEmpty();
         }

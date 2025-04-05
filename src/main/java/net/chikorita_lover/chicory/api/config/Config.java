@@ -86,8 +86,10 @@ public class Config {
     public <T extends ConfigProperty<?>> T register(T property, ConfigCategory category) {
         assertNotFrozen();
         this.properties.put(property.getName(), property);
-        this.propertyToCategory.put(property, category);
-        this.propertiesByCategory.computeIfAbsent(category, ignored -> new ArrayList<>()).add(property);
+        if (category != null) {
+            this.propertyToCategory.put(property, category);
+            this.propertiesByCategory.computeIfAbsent(category, ignored -> new ArrayList<>()).add(property);
+        }
         this.values.put(property.createValue());
         property.setConfig(this);
         return property;
@@ -142,7 +144,7 @@ public class Config {
 
     @ApiStatus.Internal
     public boolean isClient(ConfigProperty<?> property) {
-        return this.propertyToCategory.get(property).isClient();
+        return this.propertyToCategory.containsKey(property) && this.propertyToCategory.get(property).isClient();
     }
 
     @ApiStatus.Internal
@@ -187,6 +189,7 @@ public class Config {
         } else {
             this.saveValues();
         }
+        ConfigEvents.CONFIG_LOAD.invoker().onLoad(this);
     }
 
     @ApiStatus.Internal
@@ -197,5 +200,6 @@ public class Config {
         } catch (Exception e) {
             ChicoryApi.LOGGER.error("Could not write config values for mod {}: {}", this.name, e.getMessage());
         }
+        ConfigEvents.CONFIG_LOAD.invoker().onLoad(this);
     }
 }
