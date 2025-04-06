@@ -3,14 +3,15 @@
 	"package": "net.chikorita_lover.chicory.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"BoatEntityRendererMixin",
 		"SplashTextResourceSupplierMixin",
 		"gui.GhostInputSlotMixin",
 		"gui.RecipeBookWidgetMixin",
 		"recipe.ClientRecipeBookMixin",
 		"recipe.RecipeBookGroupAccessor",
 		"recipe.RecipeBookGroupMixin",
-		"recipe.RecipeResultCollectionMixin"
+		"recipe.RecipeResultCollectionMixin",
+		"render.BoatEntityRendererMixin",
+		"render.SkullBlockEntityRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

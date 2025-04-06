@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.mixin.client;
+package net.chikorita_lover.chicory.mixin.client.render;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.chikorita_lover.chicory.api.entity.BoatTypeRegistry;

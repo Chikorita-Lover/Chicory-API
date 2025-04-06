@@ -1,7 +1,10 @@
 package net.chikorita_lover.chicory.api.registry;
 
 import net.chikorita_lover.chicory.api.resource.ToggleableFeatureRegistry;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SkullBlock;
+import net.minecraft.block.WallSkullBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -65,5 +68,9 @@ public interface BlockRegistry {
     static Block registerWithItem(Identifier id, Block block, Supplier<Boolean> condition) {
         ItemRegistry.register(id, new BlockItem(block, new Item.Settings()), condition);
         return register(id, block, condition);
+    }
+
+    static Block createWallSkullBlock(Block block) {
+        return new WallSkullBlock(block instanceof SkullBlock skull ? skull.getSkullType() : SkullBlock.Type.SKELETON, AbstractBlock.Settings.copy(block).dropsLike(block));
     }
 }
