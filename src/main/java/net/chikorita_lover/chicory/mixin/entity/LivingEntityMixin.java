@@ -37,10 +37,10 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "dropEquipment", at = @At("TAIL"))
     private void dropHead(ServerWorld world, DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
-        Entity entity = source.getAttacker();
-        if (entity instanceof CreeperEntity creeper && creeper.shouldDropHead() && SkullTypeRegistry.hasSkull(this.getType())) {
+        EntityType<?> type = this.getType();
+        if (source.getAttacker() instanceof CreeperEntity creeper && creeper.shouldDropHead() && SkullTypeRegistry.hasSkull(type)) {
             creeper.onHeadDropped();
-            this.dropStack(new ItemStack(SkullTypeRegistry.getSkull(this.getType())));
+            this.dropStack(new ItemStack(SkullTypeRegistry.getSkull(type)));
         }
     }
 }
