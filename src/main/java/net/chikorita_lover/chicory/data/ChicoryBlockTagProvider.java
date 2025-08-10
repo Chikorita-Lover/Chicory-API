@@ -16,8 +16,7 @@ public class ChicoryBlockTagProvider extends FabricTagProvider.BlockTagProvider 
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        this.getOrCreateTagBuilder(ChicoryBlockTags.CONDUIT_ACTIVATING_BLOCKS).add(Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS, Blocks.SEA_LANTERN, Blocks.DARK_PRISMARINE);
-        this.getOrCreateTagBuilder(ChicoryBlockTags.SIGNAL_FIRE_BASE_BLOCKS).add(Blocks.HAY_BLOCK);
-        this.getOrCreateTagBuilder(ChicoryBlockTags.SHEARS_MINEABLE).forceAddTag(BlockTags.WOOL);
+        this.valueLookupBuilder(ChicoryBlockTags.CONDUIT_ACTIVATING_BLOCKS).add(Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS, Blocks.SEA_LANTERN, Blocks.DARK_PRISMARINE);
+        this.valueLookupBuilder(ChicoryBlockTags.SIGNAL_FIRE_BASE_BLOCKS).add(Blocks.HAY_BLOCK);
     }
 }

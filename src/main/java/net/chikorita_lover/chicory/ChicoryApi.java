@@ -4,7 +4,6 @@ import net.chikorita_lover.chicory.api.advancement.AdvancementExtensionRegistrie
 import net.chikorita_lover.chicory.api.registry.TagKeyEvents;
 import net.chikorita_lover.chicory.impl.resource.ConfigValuesMatchResourceCondition;
 import net.chikorita_lover.chicory.network.SyncConfigS2CPacket;
-import net.chikorita_lover.chicory.recipe.ChicoryRecipeSerializers;
 import net.chikorita_lover.chicory.registry.tag.ChicoryEntityTypeTags;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -24,10 +23,9 @@ public class ChicoryApi implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ChicoryRecipeSerializers.register();
         AdvancementExtensionRegistries.registerAdvancementEvents();
         PayloadTypeRegistry.playS2C().register(SyncConfigS2CPacket.PACKET_ID, SyncConfigS2CPacket.PACKET_CODEC);
-        TagKeyEvents.modifyEntriesEvent(ChicoryEntityTypeTags.MONSTERS).register((registries, entries) -> {
+        TagKeyEvents.modifyEntriesEvent(ChicoryEntityTypeTags.MONSTERS).register((entries) -> {
             Registries.ENTITY_TYPE.streamEntries().filter(entity -> !entity.value().getSpawnGroup().isPeaceful()).forEach(entries::add);
         });
         ResourceConditions.register(ConfigValuesMatchResourceCondition.TYPE);

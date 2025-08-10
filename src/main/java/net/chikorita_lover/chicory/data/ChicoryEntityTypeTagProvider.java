@@ -14,6 +14,6 @@ public class ChicoryEntityTypeTagProvider extends FabricTagProvider.EntityTypeTa
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        this.getOrCreateTagBuilder(ChicoryEntityTypeTags.MONSTERS);
+        this.valueLookupBuilder(ChicoryEntityTypeTags.MONSTERS);
     }
 }

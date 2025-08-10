@@ -14,6 +14,6 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ServerRecipeBookMixin extends RecipeBook {
     @ModifyExpressionValue(method = "unlockRecipes", at = @At(value = "INVOKE", target = "Lnet/minecraft/recipe/Recipe;isIgnoredInRecipeBook()Z"))
     private boolean isRecipeNotUnlockable(boolean ignored, @Local(argsOnly = true) ServerPlayerEntity player, @Local RecipeEntry<?> recipe) {
-        return ignored || !ToggleableFeatureRegistry.isRecipeEnabled(recipe, player.getRegistryManager());
+        return ignored || ToggleableFeatureRegistry.isRecipeDisabled(recipe);
     }
 }

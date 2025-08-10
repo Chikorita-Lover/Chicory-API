@@ -17,6 +17,6 @@ public class BooleanConfigProperty extends ConfigProperty<Boolean> {
 
     @Override
     public PacketCodec<ByteBuf, Boolean> packetCodec() {
-        return PacketCodecs.BOOL;
+        return PacketCodecs.BOOLEAN;
     }
 }

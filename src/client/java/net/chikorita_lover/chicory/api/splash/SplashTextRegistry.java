@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.api;
+package net.chikorita_lover.chicory.api.splash;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

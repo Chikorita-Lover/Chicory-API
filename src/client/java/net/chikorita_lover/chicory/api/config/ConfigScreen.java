@@ -1,6 +1,5 @@
-package net.chikorita_lover.chicory.client.gui;
+package net.chikorita_lover.chicory.api.config;
 
-import net.chikorita_lover.chicory.api.config.Config;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -9,7 +8,6 @@ import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
@@ -39,11 +37,11 @@ public class ConfigScreen extends Screen {
         DirectionalLayoutWidget layoutWidget = this.layout.addFooter(DirectionalLayoutWidget.horizontal().spacing(8));
         this.doneButton = layoutWidget.add(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).build());
         this.layout.forEachChild(this::addDrawableChild);
-        this.initTabNavigation();
+        this.refreshWidgetPositions();
     }
 
     @Override
-    protected void initTabNavigation() {
+    protected void refreshWidgetPositions() {
         this.layout.refreshPositions();
         if (this.listWidget != null) {
             this.listWidget.position(this.width, this.layout);

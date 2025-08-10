@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.api;
+package net.chikorita_lover.chicory.api.splash;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.gui.screen.SplashTextRenderer;
 import net.minecraft.client.session.Session;
 import net.minecraft.util.math.random.Random;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
 import java.util.List;

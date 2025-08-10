@@ -2,8 +2,8 @@ package net.chikorita_lover.chicory.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.chikorita_lover.chicory.ChicoryApi;
-import net.chikorita_lover.chicory.api.SplashTextRegistry;
-import net.chikorita_lover.chicory.api.SplashTextRenderEvents;
+import net.chikorita_lover.chicory.api.splash.SplashTextRegistry;
+import net.chikorita_lover.chicory.api.splash.SplashTextRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.SplashTextRenderer;
 import net.minecraft.client.resource.SplashTextResourceSupplier;

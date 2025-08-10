@@ -7,7 +7,7 @@ import net.chikorita_lover.chicory.api.config.Config;
 import net.chikorita_lover.chicory.api.config.property.ConfigProperty;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.RegistryOps;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public record ConfigValuesMatchResourceCondition(Config config,
     }
 
     @Override
-    public boolean test(@Nullable RegistryWrapper.WrapperLookup registries) {
+    public boolean test(@Nullable RegistryOps.RegistryInfoGetter registryInfoGetter) {
         return this.values.stream().allMatch(value -> this.config.get(value.property()) == value.value());
     }
 }

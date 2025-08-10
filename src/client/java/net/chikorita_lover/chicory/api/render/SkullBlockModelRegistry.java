@@ -4,7 +4,7 @@ import net.chikorita_lover.chicory.api.block.SkullTypeRegistry;
 import net.minecraft.block.SkullBlock;
 import net.minecraft.client.render.block.entity.SkullBlockEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
+import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.model.SkullEntityModel;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
@@ -58,12 +58,12 @@ public final class SkullBlockModelRegistry {
     }
 
     @ApiStatus.Internal
-    public static SkullBlockEntityModel createModel(SkullBlock.Type type, EntityModelLoader modelLoader) {
-        return FACTORIES.getOrDefault(type, DEFAULT_FACTORY).create(modelLoader);
+    public static SkullBlockEntityModel createModel(SkullBlock.Type type, LoadedEntityModels models) {
+        return FACTORIES.getOrDefault(type, DEFAULT_FACTORY).create(models);
     }
 
     @FunctionalInterface
     public interface ModelFactory {
-        SkullBlockEntityModel create(EntityModelLoader modelLoader);
+        SkullBlockEntityModel create(LoadedEntityModels models);
     }
 }

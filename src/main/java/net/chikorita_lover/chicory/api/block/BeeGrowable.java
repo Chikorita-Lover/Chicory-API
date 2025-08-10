@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.block;
+package net.chikorita_lover.chicory.api.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.passive.BeeEntity;

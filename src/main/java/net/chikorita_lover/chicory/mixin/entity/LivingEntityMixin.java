@@ -40,7 +40,7 @@ public abstract class LivingEntityMixin extends Entity {
         EntityType<?> type = this.getType();
         if (source.getAttacker() instanceof CreeperEntity creeper && creeper.shouldDropHead() && SkullTypeRegistry.hasSkull(type)) {
             creeper.onHeadDropped();
-            this.dropStack(new ItemStack(SkullTypeRegistry.getSkull(type)));
+            this.dropStack(world, new ItemStack(SkullTypeRegistry.getSkull(type)));
         }
     }
 }

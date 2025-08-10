@@ -7,8 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.loot.LootTable;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.sound.BlockSoundGroup;
 import org.jetbrains.annotations.Nullable;
@@ -23,9 +21,6 @@ public class AbstractBlockMixin implements BlockSettingsHolder {
     @Shadow
     @Final
     protected boolean collidable;
-    @Shadow
-    @Nullable
-    protected RegistryKey<LootTable> lootTableKey;
     @Mutable
     @Shadow
     @Final
@@ -65,7 +60,6 @@ public class AbstractBlockMixin implements BlockSettingsHolder {
     @Override
     public void chicory$updateSettings() {
         this.collidable = settings.collidable;
-        this.lootTableKey = settings.lootTableKey;
         this.resistance = settings.resistance;
         this.randomTicks = settings.randomTicks;
         this.soundGroup = settings.soundGroup;
@@ -97,7 +91,6 @@ public class AbstractBlockMixin implements BlockSettingsHolder {
         @Mutable
         @Shadow
         @Final
-        @Deprecated
         private boolean liquid;
         @Mutable
         @Shadow

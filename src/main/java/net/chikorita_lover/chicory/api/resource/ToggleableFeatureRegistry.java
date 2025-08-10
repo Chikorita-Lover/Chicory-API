@@ -1,16 +1,18 @@
 package net.chikorita_lover.chicory.api.resource;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.resource.featuretoggle.ToggleableFeature;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public final class ToggleableFeatureRegistry {
     private static final Map<ToggleableFeature, List<Supplier<Boolean>>> FEATURE_TO_REQUIRED_MODS = new HashMap<>();
     private static final List<Identifier> DISABLED_RECIPES = new ArrayList<>();
@@ -62,8 +64,7 @@ public final class ToggleableFeatureRegistry {
     }
 
     @ApiStatus.Internal
-    public static boolean isRecipeEnabled(RecipeEntry<?> entry, RegistryWrapper.WrapperLookup registries) {
-        Recipe<?> recipe = entry.value();
-        return !DISABLED_RECIPES.contains(entry.id()) && isEnabled(recipe.getResult(registries).getItem()) && recipe.getIngredients().stream().allMatch(ingredient -> ingredient.isEmpty() || Arrays.stream(ingredient.getMatchingStacks()).anyMatch(stack -> isEnabled(stack.getItem())));
+    public static boolean isRecipeDisabled(RecipeEntry<?> entry) {
+        return DISABLED_RECIPES.contains(entry.id().getValue());
     }
 }

@@ -3,6 +3,7 @@ package net.chikorita_lover.chicory.api.recipe;
 import net.chikorita_lover.chicory.ChicoryApi;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.resource.ResourceManager;
@@ -35,6 +36,6 @@ public final class RecipeEvents {
         /**
          * Called when all recipes have been loaded.
          */
-        void onRecipesLoaded(ResourceManager resourceManager, List<RecipeEntry<?>> entries, RegistryWrapper.WrapperLookup registries);
+        void onRecipesLoaded(ResourceManager resourceManager, List<RecipeEntry<Recipe<?>>> entries, RegistryWrapper.WrapperLookup registries);
     }
 }

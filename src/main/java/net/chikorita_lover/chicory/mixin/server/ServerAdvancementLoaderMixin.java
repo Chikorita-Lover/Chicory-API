@@ -29,16 +29,16 @@ import java.util.Map;
 public class ServerAdvancementLoaderMixin {
     @Shadow
     @Final
-    private RegistryWrapper.WrapperLookup registryLookup;
+    private RegistryWrapper.WrapperLookup registries;
 
-    @ModifyVariable(method = "method_20723", at = @At(value = "STORE"))
+    @ModifyVariable(method = "method_20723", at = @At(value = "LOAD"), argsOnly = true)
     private Advancement modifyAdvancement(Advancement advancement, @Local(argsOnly = true) Identifier id) {
         ChicoryAdvancementBuilder builder = new ChicoryAdvancementBuilder(advancement);
         Event<AdvancementEvents.Modify> event = AdvancementEventsImpl.getModifyEvent(id);
         try {
-            AdvancementEvents.MODIFY_ALL.invoker().modifyAdvancement(id, builder, this.registryLookup);
+            AdvancementEvents.MODIFY_ALL.invoker().modifyAdvancement(id, builder, this.registries);
             if (event != null) {
-                event.invoker().modifyAdvancement(builder, this.registryLookup);
+                event.invoker().modifyAdvancement(builder, this.registries);
             }
             advancement = builder.build();
         } catch (Exception exception) {
@@ -50,7 +50,7 @@ public class ServerAdvancementLoaderMixin {
     @ModifyExpressionValue(method = "apply(Ljava/util/Map;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;buildOrThrow()Lcom/google/common/collect/ImmutableMap;"))
     private ImmutableMap<Identifier, AdvancementEntry> onAdvancementsLoaded(ImmutableMap<Identifier, AdvancementEntry> advancements, Map<Identifier, JsonElement> map, ResourceManager resourceManager) {
         List<AdvancementEntry> entries = new ArrayList<>(advancements.values());
-        AdvancementEvents.ALL_LOADED.invoker().onAdvancementsLoaded(resourceManager, entries, this.registryLookup);
+        AdvancementEvents.ALL_LOADED.invoker().onAdvancementsLoaded(resourceManager, entries, this.registries);
         ImmutableMap.Builder<Identifier, AdvancementEntry> builder = ImmutableMap.builder();
         for (AdvancementEntry entry : entries) {
             try {

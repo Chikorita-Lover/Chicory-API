@@ -1,4 +1,4 @@
-package net.chikorita_lover.chicory.client.gui;
+package net.chikorita_lover.chicory.api.config;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -75,7 +75,7 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
         super.renderWidget(context, mouseX, mouseY, delta);
         AbstractPropertyWidget widget = this.getHoveredEntry();
         if (widget != null && widget.description != null) {
-            this.parent.setTooltip(widget.description);
+            context.drawTooltip(widget.description, mouseX, mouseY);
         }
     }
 

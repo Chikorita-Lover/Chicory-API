@@ -1,7 +1,6 @@
 accessWidener v2 named
 
 accessible field net/minecraft/block/AbstractBlock$Settings collidable Z
-accessible field net/minecraft/block/AbstractBlock$Settings lootTableKey Lnet/minecraft/registry/RegistryKey;
 accessible field net/minecraft/block/AbstractBlock$Settings resistance F
 accessible field net/minecraft/block/AbstractBlock$Settings randomTicks Z
 accessible field net/minecraft/block/AbstractBlock$Settings soundGroup Lnet/minecraft/sound/BlockSoundGroup;

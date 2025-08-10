@@ -4,16 +4,13 @@
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"SplashTextResourceSupplierMixin",
-		"gui.GhostInputSlotMixin",
-		"gui.RecipeBookWidgetMixin",
-		"recipe.ClientRecipeBookMixin",
-		"recipe.RecipeBookGroupAccessor",
-		"recipe.RecipeBookGroupMixin",
-		"recipe.RecipeResultCollectionMixin",
-		"render.BoatEntityRendererMixin",
+		"recipe.ClientRecipeBookTypeAccessor",
 		"render.SkullBlockEntityRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
-	}
+	},
+	"mixins": [
+		"recipe.ClientRecipeBookTypeMixin"
+	]
 }

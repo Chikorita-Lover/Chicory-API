@@ -4,9 +4,11 @@ import net.minecraft.advancement.*;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.function.LazyContainer;
 import net.minecraft.text.Text;
+import net.minecraft.util.AssetInfo;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
  *
  * @see AdvancementEvents
  */
+@SuppressWarnings("unused")
 public class ChicoryAdvancementBuilder {
     private final Map<String, AdvancementCriterion<?>> criteria;
     private final List<List<String>> requirements;
@@ -51,14 +54,14 @@ public class ChicoryAdvancementBuilder {
      * Sets the advancement's display properties, replacing any and all previous display properties.
      */
     public ChicoryAdvancementBuilder display(ItemStack icon, Text title, Text description, @Nullable Identifier background, AdvancementFrame frame, boolean showToast, boolean announceToChat, boolean hidden) {
-        return this.display(new AdvancementDisplay(icon, title, description, Optional.ofNullable(background), frame, showToast, announceToChat, hidden));
+        return this.display(new AdvancementDisplay(icon, title, description, Optional.ofNullable(background).map(AssetInfo::new), frame, showToast, announceToChat, hidden));
     }
 
     /**
      * Sets the advancement's display properties, replacing any and all previous display properties.
      */
     public ChicoryAdvancementBuilder display(ItemConvertible icon, Text title, Text description, @Nullable Identifier background, AdvancementFrame frame, boolean showToast, boolean announceToChat, boolean hidden) {
-        return this.display(new AdvancementDisplay(new ItemStack(icon.asItem()), title, description, Optional.ofNullable(background), frame, showToast, announceToChat, hidden));
+        return this.display(new AdvancementDisplay(new ItemStack(icon.asItem()), title, description, Optional.ofNullable(background).map(AssetInfo::new), frame, showToast, announceToChat, hidden));
     }
 
     /**
@@ -121,10 +124,10 @@ public class ChicoryAdvancementBuilder {
     /**
      * Adds a new recipe to the advancement's rewards upon completion while maintaining all previous rewards.
      *
-     * @param recipe the identifier of the recipe to add
+     * @param recipe the registry key of the recipe to add
      */
-    public ChicoryAdvancementBuilder recipe(Identifier recipe) {
-        List<Identifier> list = new ArrayList<>(this.rewards.recipes());
+    public ChicoryAdvancementBuilder recipe(RegistryKey<Recipe<?>> recipe) {
+        List<RegistryKey<Recipe<?>>> list = new ArrayList<>(this.rewards.recipes());
         list.add(recipe);
         this.rewards(new AdvancementRewards(this.rewards.experience(), this.rewards.loot(), list, this.rewards.function()));
         return this;

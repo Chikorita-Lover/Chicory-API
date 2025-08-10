@@ -2,7 +2,7 @@ package net.chikorita_lover.chicory.mixin.entity;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.chikorita_lover.chicory.block.BeeGrowable;
+import net.chikorita_lover.chicory.api.block.BeeGrowable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.passive.BeeEntity;

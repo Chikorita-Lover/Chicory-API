@@ -2,7 +2,7 @@ package net.chikorita_lover.chicory.api.advancement;
 
 import net.minecraft.advancement.criterion.*;
 import net.minecraft.block.Block;
-import net.minecraft.data.server.advancement.vanilla.VanillaHusbandryTabAdvancementGenerator;
+import net.minecraft.data.advancement.vanilla.VanillaHusbandryTabAdvancementGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -100,24 +100,24 @@ public final class AdvancementExtensionRegistries {
     @ApiStatus.Internal
     public static void registerAdvancementEvents() {
         AdvancementEvents.modifyEvent("adventure/adventuring_time").register((builder, registries) -> {
-            final RegistryWrapper.Impl<Biome> biomes = registries.getWrapperOrThrow(RegistryKeys.BIOME);
+            final RegistryWrapper.Impl<Biome> biomes = registries.getOrThrow(RegistryKeys.BIOME);
             OVERWORLD_BIOMES.getEntries().forEach(biome -> {
                 builder.andCriterion(biome.getValue().toString(), TickCriterion.Conditions.createLocation(LocationPredicate.Builder.createBiome(biomes.getOrThrow(biome))));
             });
         });
         AdvancementEvents.modifyEvent("adventure/kill_a_mob").register((builder, registries) -> {
             MONSTERS.getEntries().forEach(type -> {
-                builder.orCriterion(type.getRegistryEntry().getIdAsString(), OnKilledCriterion.Conditions.createPlayerKilledEntity(EntityPredicate.Builder.create().type(type)));
+                builder.orCriterion(type.getRegistryEntry().getIdAsString(), OnKilledCriterion.Conditions.createPlayerKilledEntity(EntityPredicate.Builder.create().type(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), type)));
             });
         });
         AdvancementEvents.modifyEvent("adventure/kill_all_mobs").register((builder, registries) -> {
             MONSTERS.getEntries().forEach(type -> {
-                builder.andCriterion(type.getRegistryEntry().getIdAsString(), OnKilledCriterion.Conditions.createPlayerKilledEntity(EntityPredicate.Builder.create().type(type)));
+                builder.andCriterion(type.getRegistryEntry().getIdAsString(), OnKilledCriterion.Conditions.createPlayerKilledEntity(EntityPredicate.Builder.create().type(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), type)));
             });
         });
         AdvancementEvents.modifyEvent("adventure/lighten_up").register((builder, registries) -> {
-            LocationPredicate.Builder locationPredicate = LocationPredicate.Builder.create().block(BlockPredicate.Builder.create().blocks(TRIAL_CHAMBER_LIGHT_BLOCKS.getEntries()).state(StatePredicate.Builder.create().exactMatch(Properties.LIT, true)));
-            builder.orCriterion("chicory:lighten_up", ItemCriterion.Conditions.createItemUsedOnBlock(locationPredicate, ItemPredicate.Builder.create().items(VanillaHusbandryTabAdvancementGenerator.AXE_ITEMS)));
+            LocationPredicate.Builder locationPredicate = LocationPredicate.Builder.create().block(BlockPredicate.Builder.create().blocks(registries.getOrThrow(RegistryKeys.BLOCK), TRIAL_CHAMBER_LIGHT_BLOCKS.getEntries()).state(StatePredicate.Builder.create().exactMatch(Properties.LIT, true)));
+            builder.orCriterion("chicory:lighten_up", ItemCriterion.Conditions.createItemUsedOnBlock(locationPredicate, ItemPredicate.Builder.create().items(registries.getOrThrow(RegistryKeys.ITEM), VanillaHusbandryTabAdvancementGenerator.AXE_ITEMS)));
         });
         AdvancementEvents.modifyEvent("adventure/salvage_sherd").register((builder, registries) -> {
             ARCHAEOLOGY_LOOT_TABLES.getEntries().forEach(lootTable -> {
@@ -129,27 +129,27 @@ public final class AdvancementExtensionRegistries {
         });
         AdvancementEvents.modifyEvent("adventure/trim_with_all_exclusive_armor_patterns").register((builder, registries) -> {
             EXCLUSIVE_ARMOR_PATTERN_RECIPES.getEntries().forEach(id -> {
-                builder.andCriterion("armor_trimmed_" + id.toString(), RecipeCraftedCriterion.Conditions.create(id));
+                builder.andCriterion("armor_trimmed_" + id.toString(), RecipeCraftedCriterion.Conditions.create(RegistryKey.of(RegistryKeys.RECIPE, id)));
             });
         });
         AdvancementEvents.modifyEvent("adventure/trim_with_any_armor_pattern").register((builder, registries) -> {
             ARMOR_PATTERN_RECIPES.getEntries().forEach(id -> {
-                builder.orCriterion("armor_trimmed_" + id.toString(), RecipeCraftedCriterion.Conditions.create(id));
+                builder.orCriterion("armor_trimmed_" + id.toString(), RecipeCraftedCriterion.Conditions.create(RegistryKey.of(RegistryKeys.RECIPE, id)));
             });
         });
         AdvancementEvents.modifyEvent("husbandry/balanced_diet").register((builder, registries) -> {
             FOOD_ITEMS.getEntries().forEach(item -> {
-                builder.andCriterion(item.getRegistryEntry().getIdAsString(), ConsumeItemCriterion.Conditions.item(item));
+                builder.andCriterion(item.getRegistryEntry().getIdAsString(), ConsumeItemCriterion.Conditions.item(registries.getOrThrow(RegistryKeys.ITEM), item));
             });
         });
         AdvancementEvents.modifyEvent("husbandry/bred_all_animals").register((builder, registries) -> {
             BREEDABLE_ANIMALS.getEntries().forEach(type -> {
-                builder.andCriterion(type.getRegistryEntry().getIdAsString(), BredAnimalsCriterion.Conditions.create(EntityPredicate.Builder.create().type(type)));
+                builder.andCriterion(type.getRegistryEntry().getIdAsString(), BredAnimalsCriterion.Conditions.create(EntityPredicate.Builder.create().type(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), type)));
             });
         });
         AdvancementEvents.modifyEvent("husbandry/fishy_business").register((builder, registries) -> {
             FISH_ITEMS.getEntries().forEach(item -> {
-                builder.orCriterion(item.getRegistryEntry().getIdAsString(), FishingRodHookedCriterion.Conditions.create(Optional.empty(), Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(item).build())));
+                builder.orCriterion(item.getRegistryEntry().getIdAsString(), FishingRodHookedCriterion.Conditions.create(Optional.empty(), Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(registries.getOrThrow(RegistryKeys.ITEM), item).build())));
             });
         });
         AdvancementEvents.modifyEvent("husbandry/plant_any_sniffer_seed").register((builder, registries) -> {
@@ -160,19 +160,19 @@ public final class AdvancementExtensionRegistries {
         });
         AdvancementEvents.modifyEvent("husbandry/tactical_fishing").register((builder, registries) -> {
             FISH_BUCKET_ITEMS.getEntries().forEach(item -> {
-                builder.orCriterion(item.getRegistryEntry().getIdAsString(), FilledBucketCriterion.Conditions.create(ItemPredicate.Builder.create().items(item)));
+                builder.orCriterion(item.getRegistryEntry().getIdAsString(), FilledBucketCriterion.Conditions.create(ItemPredicate.Builder.create().items(registries.getOrThrow(RegistryKeys.ITEM), item)));
             });
         });
         AdvancementEvents.modifyEvent("husbandry/wax_off").register((builder, registries) -> {
-            LocationPredicate.Builder locationPredicate = LocationPredicate.Builder.create().block(BlockPredicate.Builder.create().blocks(WAXED_BLOCKS.getEntries()));
-            builder.orCriterion("chicory:wax_off", ItemCriterion.Conditions.createItemUsedOnBlock(locationPredicate, ItemPredicate.Builder.create().items(VanillaHusbandryTabAdvancementGenerator.AXE_ITEMS)));
+            LocationPredicate.Builder locationPredicate = LocationPredicate.Builder.create().block(BlockPredicate.Builder.create().blocks(registries.getOrThrow(RegistryKeys.BLOCK), WAXED_BLOCKS.getEntries()));
+            builder.orCriterion("chicory:wax_off", ItemCriterion.Conditions.createItemUsedOnBlock(locationPredicate, ItemPredicate.Builder.create().items(registries.getOrThrow(RegistryKeys.ITEM), VanillaHusbandryTabAdvancementGenerator.AXE_ITEMS)));
         });
         AdvancementEvents.modifyEvent("husbandry/wax_on").register((builder, registries) -> {
-            LocationPredicate.Builder locationPredicate = LocationPredicate.Builder.create().block(BlockPredicate.Builder.create().blocks(WAXABLE_BLOCKS.getEntries()));
-            builder.orCriterion("chicory:wax_on", ItemCriterion.Conditions.createItemUsedOnBlock(locationPredicate, ItemPredicate.Builder.create().items(Items.HONEYCOMB)));
+            LocationPredicate.Builder locationPredicate = LocationPredicate.Builder.create().block(BlockPredicate.Builder.create().blocks(registries.getOrThrow(RegistryKeys.BLOCK), WAXABLE_BLOCKS.getEntries()));
+            builder.orCriterion("chicory:wax_on", ItemCriterion.Conditions.createItemUsedOnBlock(locationPredicate, ItemPredicate.Builder.create().items(registries.getOrThrow(RegistryKeys.ITEM), Items.HONEYCOMB)));
         });
         AdvancementEvents.modifyEvent("nether/explore_nether").register((builder, registries) -> {
-            final RegistryWrapper.Impl<Biome> biomes = registries.getWrapperOrThrow(RegistryKeys.BIOME);
+            final RegistryWrapper.Impl<Biome> biomes = registries.getOrThrow(RegistryKeys.BIOME);
             NETHER_BIOMES.getEntries().forEach(biome -> {
                 builder.andCriterion(biome.getValue().toString(), TickCriterion.Conditions.createLocation(LocationPredicate.Builder.createBiome(biomes.getOrThrow(biome))));
             });

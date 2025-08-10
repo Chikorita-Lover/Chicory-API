@@ -102,7 +102,7 @@ public record EnchantmentTooltipEntries(RegistryWrapper.WrapperLookup registryLo
     }
 
     private RegistryEntry<Enchantment> getEntry(RegistryKey<Enchantment> enchantment) {
-        return this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(enchantment);
+        return this.registryLookup.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(enchantment);
     }
 
     private List<RegistryEntry<Enchantment>> asRegistryEntryList(RegistryKey<Enchantment>[] enchantments) {
