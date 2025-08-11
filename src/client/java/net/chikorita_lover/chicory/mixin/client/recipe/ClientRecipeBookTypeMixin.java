@@ -17,8 +17,8 @@ import java.util.List;
 @Mixin(RecipeBookType.class)
 public class ClientRecipeBookTypeMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void setClientRegistryConsumer(CallbackInfo ci) {
-        RecipeBookTypeRegistry.setClientRegistryConsumer(ClientRecipeBookTypeMixin::register);
+    private static void registerCategories(CallbackInfo ci) {
+        RecipeBookTypeRegistry.TYPE_TO_CATEGORIES.forEach(ClientRecipeBookTypeMixin::register);
     }
 
     @Unique
