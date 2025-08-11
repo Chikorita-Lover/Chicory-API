@@ -26,7 +26,7 @@ public class ClientRecipeBookTypeMixin {
     private static void register(net.minecraft.recipe.book.RecipeBookType type, RecipeBookCategory[] categories) {
         List<RecipeBookType> values = new ArrayList<>(Arrays.asList(ClientRecipeBookTypeAccessor.getValues()));
         int ordinal = values.size();
-        RecipeBookType clientType = ClientRecipeBookTypeAccessor.create(type.name(), ordinal);
+        RecipeBookType clientType = ClientRecipeBookTypeAccessor.create(type.name(), ordinal, categories);
         values.add(clientType);
         ClientRecipeBookTypeAccessor.setValues(values.toArray(RecipeBookType[]::new));
         RecipeScreenHelper.RECIPE_TYPE_TO_GROUP.put(type, clientType);
