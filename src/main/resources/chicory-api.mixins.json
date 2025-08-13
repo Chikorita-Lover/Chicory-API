@@ -20,7 +20,7 @@
 		"entity.PlayerInventoryMixin",
 		"entity.ServerPlayerEntityMixin",
 		"item.ItemEnchantmentsComponentMixin",
-		"recipe.RecipeBookMixin",
+		"recipe.RecipeBookOptionsMixin",
 		"recipe.RecipeBookTypeAccessor",
 		"recipe.ServerRecipeManagerMixin",
 		"server.ServerAdvancementLoaderMixin",
