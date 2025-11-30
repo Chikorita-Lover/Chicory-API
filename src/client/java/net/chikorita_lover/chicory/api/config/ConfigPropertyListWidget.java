@@ -97,8 +97,8 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            context.drawCenteredTextWithShadow(MinecraftClient.getInstance().textRenderer, this.name, x + entryWidth / 2, y + 5, Colors.WHITE);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+            context.drawCenteredTextWithShadow(MinecraftClient.getInstance().textRenderer, this.name, this.getContentMiddleX(), this.getContentY() + 5, Colors.WHITE);
         }
 
         @Override
@@ -169,10 +169,10 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.draw(context, x, y);
-            this.valueWidget.setPosition(x + entryWidth - FIELD_WIDTH, y);
-            this.valueWidget.render(context, mouseX, mouseY, tickDelta);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+            this.draw(context, this.getContentX(), this.getContentY());
+            this.valueWidget.setPosition(this.getContentRightEnd() - FIELD_WIDTH, this.getContentY());
+            this.valueWidget.render(context, mouseX, mouseY, deltaTicks);
         }
     }
 
@@ -187,10 +187,10 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.draw(context, x, y);
-            this.toggleButton.setPosition(x + entryWidth - FIELD_WIDTH, y);
-            this.toggleButton.render(context, mouseX, mouseY, tickDelta);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+            this.draw(context, this.getContentX(), this.getContentY());
+            this.toggleButton.setPosition(this.getContentRightEnd() - FIELD_WIDTH, this.getContentY());
+            this.toggleButton.render(context, mouseX, mouseY, deltaTicks);
         }
     }
 
@@ -205,10 +205,10 @@ public class ConfigPropertyListWidget extends ElementListWidget<ConfigPropertyLi
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.draw(context, x, y);
-            this.toggleButton.setPosition(x + entryWidth - FIELD_WIDTH, y);
-            this.toggleButton.render(context, mouseX, mouseY, tickDelta);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+            this.draw(context, this.getContentX(), this.getContentY());
+            this.toggleButton.setPosition(this.getContentRightEnd() - FIELD_WIDTH, this.getContentY());
+            this.toggleButton.render(context, mouseX, mouseY, deltaTicks);
         }
     }
 }

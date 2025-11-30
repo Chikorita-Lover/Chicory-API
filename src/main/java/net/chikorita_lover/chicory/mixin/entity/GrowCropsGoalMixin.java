@@ -24,7 +24,7 @@ public class GrowCropsGoalMixin {
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z", shift = At.Shift.AFTER))
     public void tryGrowByBee(CallbackInfo ci, @Local int i, @Local BlockPos blockPos, @Local(ordinal = 0) BlockState blockState, @Local Block block, @Local(ordinal = 1) LocalRef<BlockState> blockState2) {
-        World world = this.field_20373.getWorld();
+        World world = this.field_20373.getEntityWorld();
         if (world instanceof ServerWorld serverWorld && block instanceof BeeGrowable beeGrowable) {
             blockState2.set(beeGrowable.getBeeGrownState(serverWorld, this.field_20373.getRandom(), blockPos, blockState, this.field_20373));
         }

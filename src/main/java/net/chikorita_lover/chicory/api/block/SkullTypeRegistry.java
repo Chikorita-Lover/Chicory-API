@@ -71,6 +71,11 @@ public final class SkullTypeRegistry {
     }
 
     @ApiStatus.Internal
+    public static Collection<EntityType<?>> getEntityTypes() {
+        return ENTITY_TO_SKULL.keySet();
+    }
+
+    @ApiStatus.Internal
     public static boolean contains(SkullBlock.Type type) {
         return TYPES.containsValue(type);
     }

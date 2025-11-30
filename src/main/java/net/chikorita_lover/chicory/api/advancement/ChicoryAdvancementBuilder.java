@@ -54,14 +54,14 @@ public class ChicoryAdvancementBuilder {
      * Sets the advancement's display properties, replacing any and all previous display properties.
      */
     public ChicoryAdvancementBuilder display(ItemStack icon, Text title, Text description, @Nullable Identifier background, AdvancementFrame frame, boolean showToast, boolean announceToChat, boolean hidden) {
-        return this.display(new AdvancementDisplay(icon, title, description, Optional.ofNullable(background).map(AssetInfo::new), frame, showToast, announceToChat, hidden));
+        return this.display(new AdvancementDisplay(icon, title, description, Optional.ofNullable(background).map(AssetInfo.TextureAssetInfo::new), frame, showToast, announceToChat, hidden));
     }
 
     /**
      * Sets the advancement's display properties, replacing any and all previous display properties.
      */
     public ChicoryAdvancementBuilder display(ItemConvertible icon, Text title, Text description, @Nullable Identifier background, AdvancementFrame frame, boolean showToast, boolean announceToChat, boolean hidden) {
-        return this.display(new AdvancementDisplay(new ItemStack(icon.asItem()), title, description, Optional.ofNullable(background).map(AssetInfo::new), frame, showToast, announceToChat, hidden));
+        return this.display(new AdvancementDisplay(new ItemStack(icon.asItem()), title, description, Optional.ofNullable(background).map(AssetInfo.TextureAssetInfo::new), frame, showToast, announceToChat, hidden));
     }
 
     /**

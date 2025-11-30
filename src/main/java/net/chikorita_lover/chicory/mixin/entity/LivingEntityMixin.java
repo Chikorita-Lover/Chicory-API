@@ -6,16 +6,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -33,14 +28,5 @@ public abstract class LivingEntityMixin extends Entity {
             factor *= 0.5;
         }
         return factor;
-    }
-
-    @Inject(method = "dropEquipment", at = @At("TAIL"))
-    private void dropHead(ServerWorld world, DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
-        EntityType<?> type = this.getType();
-        if (source.getAttacker() instanceof CreeperEntity creeper && creeper.shouldDropHead() && SkullTypeRegistry.hasSkull(type)) {
-            creeper.onHeadDropped();
-            this.dropStack(world, new ItemStack(SkullTypeRegistry.getSkull(type)));
-        }
     }
 }
